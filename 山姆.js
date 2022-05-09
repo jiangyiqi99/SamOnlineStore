@@ -1,9 +1,9 @@
 const fast_arrive = () => {
     auto.waitFor();
-    
+
     const appName = "山姆会员商店";
     launchApp(appName);
-    
+
     sleep(600);
 
     id("navigation_btn_cart").findOne().click();
@@ -20,8 +20,18 @@ const fast_arrive = () => {
                 sleep(550);
             }
             id("cart_btn_settle_accounts").findOne().click()
-            sleep(950);
+            sleep(1100);
         };
+
+        if (text("购物车配送方式不合法").exists()) {
+            back();
+            sleep(200);
+            id("navigation_btn_cart").findOne().click()
+            sleep(550);
+            continue;
+        }
+
+
         while (id("tv_common_error_btn").exists()) {
             id("tv_common_error_btn").findOne().click()
             sleep(600);
@@ -32,7 +42,7 @@ const fast_arrive = () => {
             sleep(200);
         };
 
-        if (submitbt = id("text_submit_order").findOne(1000)) {
+        if (submitbt = id("text_submit_order").findOne(5000)) {
             submitbt.click();
             sleep(250);
         } else {
@@ -54,8 +64,10 @@ const fast_arrive = () => {
             };
             if (id("settle_dialog_pay_confirm").exists()) {
                 className("android.widget.TextView").text("支付宝").findOne().parent().parent().click();
-                id("settle_dialog_pay_confirm").findOne().click()
-                stop();
+                id("settle_dialog_pay_confirm").findOne().click();
+                if (!id("text_submit_order").findOne(2000)) {
+                    stop();
+                }
             }
 
             if (id("text_submit_order").exists()) {
@@ -70,8 +82,8 @@ const fast_arrive = () => {
 
 const city_arrive = () => {
     auto.waitFor()
-    
-    
+
+
     const appName = "山姆会员商店";
     launchApp(appName);
     sleep(600);
@@ -99,10 +111,16 @@ const city_arrive = () => {
             }
 
             id("cart_btn_settle_accounts").findOne().click()
-            sleep(950);
+            sleep(1100);
         };
 
-
+        if (text("购物车配送方式不合法").exists()) {
+            back();
+            sleep(200);
+            id("navigation_btn_cart").findOne().click();
+            sleep(550);
+            continue;
+        }
 
         while (id("tv_common_error_btn").exists()) {
             id("tv_common_error_btn").findOne().click()
@@ -114,7 +132,7 @@ const city_arrive = () => {
             sleep(200);
         };
 
-        if (submitbt = id("text_submit_order").findOne(1000)) {
+        if (submitbt = id("text_submit_order").findOne(5000)) {
             submitbt.click();
             sleep(250);
         } else {
@@ -135,8 +153,12 @@ const city_arrive = () => {
             };
             if (id("settle_dialog_pay_confirm").exists()) {
                 className("android.widget.TextView").text("支付宝").findOne().parent().parent().click();
-                id("settle_dialog_pay_confirm").findOne().click()
-                stop();
+                id("settle_dialog_pay_confirm").findOne().click();
+
+                if (!id("text_submit_order").findOne(2000)) {
+                    stop();
+                }
+
             }
 
             if (id("text_submit_order").exists()) {
